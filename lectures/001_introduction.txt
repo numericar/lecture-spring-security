@@ -1,4 +1,5 @@
 Introduction to Spring Security Framework
     เป็นเครื่องมือที่ใช้สำหรับจัดการกับความปลอดภัยของ application เช่น MVC, Rest API, Microservice
 
-    
+    ${RESOURCE_NAME:DEFAULT} ใน application.properties   
+    ทำให้ระบบจะทำการอ่านข้อมูลตัวแปรจากที่กำหนดมาใช้ใน properties แต่เมื่อไม่พบข้อมูลจากตัวแปรนั้น จะทำการใช้งานค่า default แทน
