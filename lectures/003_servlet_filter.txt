@@ -1,0 +1,47 @@
+Servlets and Filters
+
+    Servlets Container
+        เป็น web server หรือ app server เช่น Tomcat, Jboss
+        ซึ่งทำหน้าที่แปลงคำขอ http ใด ๆ ก็ตามที่เราได้รับ ลงไปใน object ที่ชื่อว่า ServletRequest/HttpServletRequestObject
+        ก่อนที่จะเข้าไปประมวลผล business logic ตามที่เราออกแบบไว้
+
+        และเมื่อเราต้องการตอบกลับคำขอจาก client เราจะตอบกลับใน object ที่ชื่อว่า ServletResponse ในรูปแบบของ http
+
+        [client] <---> [Web Server <---> [Filters] <---> [Servlets]]
+
+    Filters 
+        ใช้เพื่อคัดกรองแต่ละคำขอที่ถูกส่งเข้ามา และคัดกรองการตอบกลับ
+        โดยมันจะถูกแทรกแทรงไปกับทุก ๆ คำขอเพื่อบังคับการใช้งาน security configs
+
+    โดยภาพรวมของ Spring Security มีดังนี้
+        เมื่อ client ทำงานส่ง user credentials เข้ามา จะต้องผ่าน spring security filter 
+        เพื่อสร้าง object Authentication จากนั้น object ดังกล่าวจะถูกส่งต่อให้ AuthenticationManager 
+        โดยมันจะทำหน้าที่เลือกว่าจะใช้ Provider อะไรในการตรวจสอบความถูกต้องก่อนจะส่งต่อให้กับ AuthenticationProvider
+        ที่เราต้องการ โดยด้านใน AuthenticationProvider จะพึ่งพา UserDetailManager/Service และ PasswordEncoder
+        และเมื่อ AuthenticationProvider ทำการตรวจสอบเสร็แล้วจะส่งคืนผลลัพ boolean ให้กับ AuthenticationManager
+
+        โดย AuthenticationManager จะนำผลลัพทีได้จาก AuthenticationProvider ไปปรับค่าใน object Authentication
+        ที field isAuth เป็น true/false ตามผลลัพจาก Provider ก่อนจะส่งคืนผลลัพให้กับ filter 
+
+        และ filter จะนำผลลัพที่ได้จากการตรวจสอบไปเก็บไว้ใน SecurityContext และสามารถเรียกใช้งานได้จากทั้ง project
+
+        ตัวแปรในขั้นตอนการทำงาน
+            1. User Credentials เป็นข้อมูลที่ผู้ใช้ใช้สำหรับการยืนยันตัวจน โดยอาจะเป็น username และ password หรือ jwt token
+            (อ่าน header ในส่วนของ Authorization โดยเขียน logic การอ่านไว้ที่ filter จากนั้นสร้าง Authentication object ขึ้น
+            มาเพื่อจัดเก็บข้อมูลที่ได้จาก token)
+
+            2. Spring Security Filter ทำหน้าที่วิเคราะห์ user credentials และนำข้อมูลที่ได้ไปสร้าง Authentication object
+
+            3. Authentication object ทำหน้าที่จะเก็บข้อมูลที่ได้จากการ filter ได้แก่ username, password, isAuth
+            โดยคาเริ่มต้นขอ isAuth = false 
+
+            4. Authentication Manager ทำหน้าที่รับ Authentication object มาและจะทำการจัดการกับการยืนยันตัวตน 
+            โดยจะทำการเลือกใช้ว่าจะใช้ provider อะไรเพื่อทำการยืนยันตัวตน
+
+            5. Authentication Provider ทำหน้าที่จัดเก็บขั้นตอนการตรวจสอบการยืนยันตัวตนผ่าน Authentication ที่ถูกส่งมาให้
+
+            6. User Detail Manager ทำหน้าที่จัดเก็บกับข้อมูลของผู้ใช้ โดยมีไว้ให้ Authentication Provider ใช้งาน 
+
+            7. Password Encoder ทำหน้าที่จัดเก็บ object ที่เป็น algorithm ที่ใช้ในการจัดการกับ password
+
+            8. Security Context ทำหน้าที่จัดเก็บผลลัพจากการยืนยันตัวผ่าน Authentication Manager และ Authentication Provider
