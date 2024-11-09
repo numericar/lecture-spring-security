@@ -45,3 +45,5 @@ Servlets and Filters
             7. Password Encoder ทำหน้าที่จัดเก็บ object ที่เป็น algorithm ที่ใช้ในการจัดการกับ password
 
             8. Security Context ทำหน้าที่จัดเก็บผลลัพจากการยืนยันตัวผ่าน Authentication Manager และ Authentication Provider
+            โดยเมื่อมีการส่ง http request เข้ามาใหม่ มันจะทำการอ่าน cookie ชื่อว่า JSESSIONID ซึ่งถูกสร้างโดย Spring Security 
+            และทำการค้นหาใน Security Context ว่าเคยบันทึกไว้หรือยัง ถ้ายังจะถูกบังคับให้ส่ง user credentials มาใหม่
