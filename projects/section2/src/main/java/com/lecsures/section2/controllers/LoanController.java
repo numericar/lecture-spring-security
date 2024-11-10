@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/loons")
-public class LoonController {
+@RequestMapping("/api/loans")
+public class LoanController {
 
     @GetMapping("")
     public ResponseEntity<String> getLoonDetails() {

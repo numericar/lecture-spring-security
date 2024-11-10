@@ -1,0 +1,18 @@
+
+    authenticated() 
+        เป็นการบอกให้ http request ที่ส่งมาจะต้องได้รับการยืนยันตัวตน
+        เช่น anyRequest().authenticated() หมายถึง ทุก ๆ request จะต้องได้รับการยืนยันตัวตน
+
+    permitAll() 
+        เป็นการบอกให้ http request ที่ส่งมาไม่ต้องยืนยันตัวตน
+        เช่น anyRequest().permitAll() หมายถึง ทุก ๆ request ไม่ต้องยืนยันตัวตน
+
+    denyAll() 
+        ป็ยการปฏิเสธ http request
+        เช่น anyRequest().denyAll() หมายถึง ทุก ๆ request จะถูกปฏิเสธ
+
+    anyRequest() 
+        ทุก ๆ http request
+
+    requestMatchers() 
+        http request ที่ร้องขอมาตาม path ที่เรากำหนด
