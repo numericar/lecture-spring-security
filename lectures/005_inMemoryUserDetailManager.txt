@@ -2,4 +2,8 @@ InMemoryUserDetailManager
     ใช้สำหรับจัดเก็บข้อมูลของ user ที่เราต้องการเก็บไว้ใน memory
 
 การตั้งค่ารหัสผ่าน
+    เราจะเป็นจะต้องบอก spring security ว่าจะ hash หรือไม่ ถ้า hash มันจะเรียกใช้ PasswordEncoder
     - {noop} จะไม่เข้ารหัสใด ๆ เลย เช่น {noop}54321
+
+    createDelegatingPasswordEncoder()
+        เป็นฟังก์ชันืั้ใมช้สำหรับหยิบ object ที่ใช้ในการ encoding password
