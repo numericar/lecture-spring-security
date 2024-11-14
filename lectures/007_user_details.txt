@@ -1,0 +1,26 @@
+UserDetailsManager vs UserDetailsService
+
+    UserDetailsService (interface)
+        จะมีเพียง method เดียวคือ loadUserByUsername(String username);
+        ซึ่งใช้สำหรับโหลดข้อมูลของผู้ใช้จาก username โดยสามารถนำไป implement ต่อได้ว่าจะให้โหลดจาก 
+        memory หรือ storage
+        โดย interface จะรับผิดชอบการโหลดข้อมูลผู้ใช้อย่างเดียว
+
+    UserDetailsManager (interface)
+        นำ UserDetailsService มาขยายความสามารถ ได้แก่
+            - createUser(UserDetails user) สร้างผู้ใช้ใหม่
+            - updateUser(UserDetails user) แก้ไขข้อมูลผู้ใช้
+            - deleteUser(UserDetails user) ลบข้อมูลผู้ใช้
+            - changePassword(String oldPassword, String newPassword) เปลี่ยนรหัสผู้ใช้
+            - userExists(String username) ดูว่าผู้ใช้มีอยู่หรือไม่
+
+    โดยจุดประสงค์ที่ทาง Spring security team แยกทั้ง 2 method ออกจากกันก็เพราะว่า
+    อาจจะมีกรณ๊ที่เราไม่ต้องการจัดการกับข้อมูลของผู้ใช้ด้วยฟังก์ชันจากทาง spring 
+    ต้องการโหลดข้อมูลผู้ใช้อย่างเดียว ก็จะใช้เพียง loadUserByUsername ใน UserDetailsService ก็พอแล้ว
+
+    แต่ถ้าหากต้องการให้ spring จัดการกับ user ให้ 
+    UserDetailsManager จะมี CRUD ของ user มาครบให้เลย
+
+    โดยจะมี class implementation ของ UserDetailsManager ดังนี้
+        - InMemoryUserDetailsManager จัดการกับข้อมูลที่ถูกจัดเก็บอยู่ใน memory 
+        - JdbcUserDetailsManager จัดการกับข้อมูลที่ถูกจัดเก็บในฐานข้อมูล
