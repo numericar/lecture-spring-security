@@ -24,3 +24,4 @@ UserDetailsManager vs UserDetailsService
     โดยจะมี class implementation ของ UserDetailsManager ดังนี้
         - InMemoryUserDetailsManager จัดการกับข้อมูลที่ถูกจัดเก็บอยู่ใน memory 
         - JdbcUserDetailsManager จัดการกับข้อมูลที่ถูกจัดเก็บในฐานข้อมูล
+        - LdapUserDetailsManager 
