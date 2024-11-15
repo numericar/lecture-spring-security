@@ -25,3 +25,40 @@ UserDetailsManager vs UserDetailsService
         - InMemoryUserDetailsManager จัดการกับข้อมูลที่ถูกจัดเก็บอยู่ใน memory 
         - JdbcUserDetailsManager จัดการกับข้อมูลที่ถูกจัดเก็บในฐานข้อมูล
         - LdapUserDetailsManager 
+
+UserDetails vs Authentication
+    UserDetails
+        มีคลาสที่ทำการ implement ไปคือ user และจะมีวิธีการต่าง ๆ ในการเข้าถึงข้อมูลของผู้ใช้
+        เช่น
+            - getPassword()
+            - getUsername()
+            - getAuthorities()
+            - isAccountNonExpired()
+            - isAccountNonLock()
+            - isEnabled()
+            - isCredentialNonExpire()
+
+    Authentication
+        เป็น interface ที่สืบทอดมาจาก Principal ซึ่งมาจาก JDK ซึ่งจะมีอยู่แค่ method เดียวคือ getName() (เหมือนกับ getUsername())
+        และ authentication นำมาสืบทอดต่อเมื่อเพิ่มความสามารถดังนี้
+            - getName() (getUsername() ของ UserDetails)
+            - getPrincipal()
+            - getAuthorities() (getAuthorities() ของ UserDetails)
+            - getCredentials() (getPassword() ของ UserDetails)
+            - getDetails()
+            - isAuthenticated()
+            - setAuthenticated()
+            - eraseCredentials() ลบรายละเอียดของรหัสผ่าน เมื่อการยืนยันตัวตนเสร็จสิ้น
+
+        โดยเราสามารถระบุได้ว่าการยืนยันตัวตนนั้นถูกต้องหรือไม่ ผ่าน setAuthenticated() และเข้าไปดูผลลัพได้ที่ isAuthenticated()
+
+        โดยทาง Spring Security ได้สร้าง implementation ของ Authentication ขึ้นมาคือ UsernamePasswordAuthenticationToken
+
+
+    โดยสรุปความแตกต่างได้ดังนี้
+
+        UserDetails
+            ใช้เพื่อเข้าถึงข้อมูลของผู้ใช้ ที่ผ่านการยืนยันตัวตนเรียบร้อยแล้ว และจะถูกเรียกใช้งานทุกครั้งทีมีคำขอถูกส่ง
+        Authentication
+            ใช้เพื่อเข้าถึงข้อมูลของผู้ใช้ ที่ยังไม่ได้ยืนยันตัวตน โดยจะมี AuthenticationProvider และ AuthenticationManager 
+            เข้ามาจัดการกับข้อมูล เพื่อตรวจสอบว่า ข้อมูลของผู้ใช้ที่อยู่ใน Authentication จะผ่านการยืนยันตัวตนหรือไม่
