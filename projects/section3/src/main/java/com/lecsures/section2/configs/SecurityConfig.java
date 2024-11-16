@@ -19,9 +19,11 @@ public class SecurityConfig {
         // http.authorizeHttpRequests((req) -> req.anyRequest().authenticated());
         // http.authorizeHttpRequests((req) -> req.anyRequest().permitAll());
 
-        http.authorizeHttpRequests((req) -> req.requestMatchers("/api/accounts", "/api/balances", "/api/loans", "/api/cards").authenticated());
-        http.authorizeHttpRequests((req) -> req.requestMatchers("/api/notices", "/api/contacts", "api/welcomes", "/error").permitAll());
+        http.csrf(config -> config.disable());
 
+        http.authorizeHttpRequests((req) -> req.requestMatchers("/api/accounts", "/api/balances", "/api/loans", "/api/cards").authenticated());
+        http.authorizeHttpRequests((req) -> req.requestMatchers("/api/notices", "/api/contacts", "/api/welcomes","/api/users", "/error").permitAll());
+        
         http.formLogin(withDefaults());
         // http.formLogin((httpSecurityFormLoginConfig) -> httpSecurityFormLoginConfig.disable()); // chamge withDefaults() to disable() for disable login form
         
