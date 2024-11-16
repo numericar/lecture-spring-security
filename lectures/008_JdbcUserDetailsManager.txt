@@ -1,0 +1,3 @@
+JdbcUserDetailsManager
+    เป็นการใช้งานการจัดการกับ user ผ่านฐานข้อมูล 
+    โดยเราสามารถระบุ DataSource ลงไปในขั้นตอนการสร้าง instance ได้ 
