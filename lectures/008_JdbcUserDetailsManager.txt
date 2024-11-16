@@ -3,3 +3,6 @@ JdbcUserDetailsManager
     โดยเราสามารถระบุ DataSource ลงไปในขั้นตอนการสร้าง instance ได้ 
 
     โดยมีข้อเสียคือบังคับให้ระบบจะต้องมี User table
+
+    โดยเพื่อให้ DaoAuthenticationProvider เรียกใช้งานตารางที่เราสร้างเอให้นั้น เราจะต้องสร้าง bean ที่ทำการ implements UserDetailsService 
+    ของเราเอง
