@@ -1,0 +1,4 @@
+EnableWebSecurity
+    เป็นการเปิดใช้งาน Security ใน Spring boot application
+    แต่จะใส่หรือไม่ใส่ก็ได้ เนื่องจากในปัจจุบัน เมื่อ Spring มองเห็น dependency spring-boot-starter-security
+    มันจะทำการเปิด security โดยอัตโนมัติ
