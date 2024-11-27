@@ -6,3 +6,15 @@ Environment Specific Profile
         - ในขั้นตอน development ให้ใช้ Profile: DEV 
         - ในขั้นตอน testing ให้ใช้ Profile: PRE 
         - ในขั้นตอนนำไปใช้งานจริง ให้ใช้ Profile: PROD
+
+    เราสามารถบอก spring ว่าเรามีไฟล์ environment แยกต่างหาก ด้วยคำสั่ง
+    spring.config.import = <name>
+
+    โดยถ้ามีหลายไฟล์ เราสามารถใช้ comma มาขั้นต่อกันไปเรื่อย ๆ ได้ 
+    spring.config.import = <name>, <name>
+
+    และเราสามารถสั่งให้ spring active profile นั้น ๆ ได้ด้วยคำสั่ง 
+    spring.profiles.active = <value>
+
+    เราสามารถตั้งชื่อให้กับ profile ที่เราสร้างแยกไว้ได้
+    spring.config.activate.on-profile= <name>
