@@ -1,0 +1,10 @@
+Spring accept only HTTPS
+    การใช้งาน HTTPS ทำให้การส่งข้อมูลระหว่างอินเตอร์เน็ตได้รับการเข้ารหัสความปลอดภัย
+    ทำให้ข้อมูลที่ถูกขโมยไประหว่างทาง ไม่สามารถถูกอ่านได้
+
+    โดยเราสามารถตั้งค่าให้ยอมรับเฉพาะคำขอที่เป็น HTTPS ได้ โดยการตั้งค่าใน Security Config
+    ด้วยคำสั่ง 
+    http.requiresChannel(requestChanalConfiguration -> requestChanalConfiguration.anyRequest().requiresSecure());
+
+    และเราสามารถตั้งค่าให้ใช้งานได้เฉพาะ http ได้ด้วยคำสั่ง
+     http.requiresChannel(requestChannelConfiguration -> requestChannelConfiguration.anyRequest().requiresInsecure());
