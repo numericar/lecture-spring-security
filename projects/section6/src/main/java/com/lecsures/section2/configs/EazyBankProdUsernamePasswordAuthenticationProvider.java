@@ -9,16 +9,15 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
-@Component
-@Profile("!prod") // bean นี้จะถูกนำไปสร้าง เมื่อ environment ไม่ใช่ prod
-public class EazyBankUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
+// ให้ใช้งานก็ต่อเมื่อ environment เป็น PROD
+@Profile("prod") // เมื่อ environment profile เป็น prod, bean ของ EazyBankProdUsernamePasswordAuthenticationProvider จะถูกสร้างขึน
+public class EazyBankProdUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
-    public EazyBankUsernamePasswordAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    public EazyBankProdUsernamePasswordAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -43,3 +42,4 @@ public class EazyBankUsernamePasswordAuthenticationProvider implements Authentic
     }
 
 }
+
