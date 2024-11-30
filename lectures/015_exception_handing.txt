@@ -1,0 +1,12 @@
+Exception Handling
+    ใน Spring Security จะมีการเกิด Exception อยู่ 2 แบบคือ
+        - [401] AuthenticationException (มีคลาสลูกอยู่มากมาย เช่น BadCredentialsException, UsernameNotFoundException)
+        - [403] AccessDeniedException
+    
+    โดยใน Spring Security จะมี filter ที่อยู่ในการตรวจสอบ Exception ทั้ง 2 อย่างอยู่ คือ ExceptionTranslationFilter
+    โดยเมื่อเกิด AuthenticationException มันจะเรียกใช้ AuthenticationEntryPoint ซึ่งเป็น interface ใน Spring Security
+    โดยมีหน้าที่รับผิดชอบข้อยกเว้นที่เกี่ยวข้องกับ AuthenticationException
+
+    และของ AccessDenideException จะเรียกใช้ AccessDeniedHandler
+
+    โดยเราจะต้องทำการ Implement interface ทั้งคู่ไปเพื่อ custom logic สำหรับการ response
