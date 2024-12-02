@@ -33,11 +33,15 @@ public class SecurityConfig {
         http.authorizeHttpRequests((req) -> req.requestMatchers("/api/notices", "/api/contacts", "/api/welcomes","/api/users", "/error").permitAll());
         
         http.formLogin(withDefaults());
+        // http.formLogin(formLoginConfig -> formLoginConfig);
         // http.formLogin((httpSecurityFormLoginConfig) -> httpSecurityFormLoginConfig.disable()); // chamge withDefaults() to disable() for disable login form
         
         // custom entry point for http basic
         http.httpBasic(httpBasicConfig -> httpBasicConfig.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
         // http.httpBasic((httpBasicConfig) -> httpBasicConfig.disable());
+        
+        // global configuratinos for all exception from spring security
+        http.exceptionHandling(exceptionHandlingConfig -> exceptionHandlingConfig.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
 
         return http.build();
     }
