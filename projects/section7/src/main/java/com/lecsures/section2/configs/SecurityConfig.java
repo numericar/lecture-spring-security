@@ -3,6 +3,7 @@ package com.lecsures.section2.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.password.CompromisedPasswordChecker;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -23,25 +24,29 @@ public class SecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         // http.authorizeHttpRequests((req) -> req.anyRequest().authenticated());
         // http.authorizeHttpRequests((req) -> req.anyRequest().permitAll());
+    	
+    	// config exception when session is invalid
+    	http.sessionManagement(smc -> smc.invalidSessionUrl("/invalidSession"));
 
         // accept only http
         http.requiresChannel(requestChannelConfiguration -> requestChannelConfiguration.anyRequest().requiresInsecure());
 
         http.csrf(config -> config.disable());
 
-        http.authorizeHttpRequests((req) -> req.requestMatchers("/api/accounts", "/api/balances", "/api/loans", "/api/cards").authenticated());
-        http.authorizeHttpRequests((req) -> req.requestMatchers("/api/notices", "/api/contacts", "/api/welcomes","/api/users", "/error").permitAll());
+        http.authorizeHttpRequests((req) -> req
+        		.requestMatchers("/api/accounts", "/api/balances", "/api/loans", "/api/cards").authenticated()
+        		.requestMatchers("/api/notices", "/api/contacts", "/api/welcomes","/api/users", "/error", "/invalidSession").permitAll());
         
         http.formLogin(withDefaults());
         // http.formLogin(formLoginConfig -> formLoginConfig);
         // http.formLogin((httpSecurityFormLoginConfig) -> httpSecurityFormLoginConfig.disable()); // chamge withDefaults() to disable() for disable login form
         
         // custom entry point for http basic
-        http.httpBasic(httpBasicConfig -> httpBasicConfig.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
+        // http.httpBasic(httpBasicConfig -> httpBasicConfig.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
         // http.httpBasic((httpBasicConfig) -> httpBasicConfig.disable());
         
         // global configuratinos for all exception from spring security
-        http.exceptionHandling(exceptionHandlingConfig -> exceptionHandlingConfig.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
+        // http.exceptionHandling(exceptionHandlingConfig -> exceptionHandlingConfig.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
         
         // global config for all exception for access denied handling
         // http.exceptionHandling(exceptionHandlingConfig -> exceptionHandlingConfig.accessDeniedHandler(new CustomAccessDeniedHandler()));

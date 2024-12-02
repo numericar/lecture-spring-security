@@ -1,0 +1,6 @@
+Session Timeout
+    โดยปกติแล้ว ค่าเริ่มต้นในการหมดอายุของ session คือ 30 นาที
+
+    โดยเราสามารถตั้งค่าเวลาของ session ได้ดังนี้
+    
+        ใช้ไฟล์ application.properties ด้วยคำสั่ง server.servlet.session.timeout=20m (20 นาที)

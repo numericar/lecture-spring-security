@@ -21,7 +21,7 @@ public class CustomBasicAuthenticationEntryPoint implements AuthenticationEntryP
 		response.setHeader("eazy-error-reason", "Authentication failed");
 		// response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
-		response.setContentType("application/json.charset=UTF-8"); // set response type is json with char set UTF-8
+		response.setContentType("application/json;charset=UTF-8"); // set response type is json with char set UTF-8
 		
 		ResponseDto<Object> responseDto = new ResponseDto<Object>();
 		responseDto.setSuccess(false);
