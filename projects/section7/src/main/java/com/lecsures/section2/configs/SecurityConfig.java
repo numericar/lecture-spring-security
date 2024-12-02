@@ -9,6 +9,9 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
+
+import com.lecsures.section2.exceptions.CustomBasicAuthenticationEntryPoint;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 
@@ -32,7 +35,8 @@ public class SecurityConfig {
         http.formLogin(withDefaults());
         // http.formLogin((httpSecurityFormLoginConfig) -> httpSecurityFormLoginConfig.disable()); // chamge withDefaults() to disable() for disable login form
         
-        http.httpBasic(withDefaults());
+        // custom entry point for http basic
+        http.httpBasic(httpBasicConfig -> httpBasicConfig.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
         // http.httpBasic((httpBasicConfig) -> httpBasicConfig.disable());
 
         return http.build();
