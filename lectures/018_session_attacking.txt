@@ -1,0 +1,9 @@
+Session Fixation
+    
+
+
+Session Hijacking
+    เป็นการโจมตีในรูปแบบที่ hacker จะทำการขโมย SESSIONID จาก browser
+    โดยเราสามารถป้องกันได้ผ่านการใช้งาน HTTPS
+
+    หรืออีกทางคือการทำให้่ SessionId มีอายุที่สั้น เช่น 10 - 15 นาที

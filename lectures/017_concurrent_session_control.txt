@@ -1,0 +1,5 @@
+Concurrent Session Control
+    ใน Spring Security การตั้งค่าเริ่มตอนของ session จะให้ผู้ใช้มี session เท่าไหร่ก็ได้ 
+    แต่ในโลกของการทำงาน ผู้ใช้ควรถูกจำกัดจำนวนของ session เอาไว้
+
+    โดยเราสามารถกำหนดได้ใน sessionManagement ผ่าน method maximumSessions(count)

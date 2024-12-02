@@ -26,7 +26,7 @@ public class SecurityConfig {
         // http.authorizeHttpRequests((req) -> req.anyRequest().permitAll());
     	
     	// config exception when session is invalid
-    	http.sessionManagement(smc -> smc.invalidSessionUrl("/invalidSession"));
+    	// http.sessionManagement(smc -> smc.invalidSessionUrl("/invalidSession").maximumSessions(1));
 
         // accept only http
         http.requiresChannel(requestChannelConfiguration -> requestChannelConfiguration.anyRequest().requiresInsecure());
@@ -35,7 +35,8 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests((req) -> req
         		.requestMatchers("/api/accounts", "/api/balances", "/api/loans", "/api/cards").authenticated()
-        		.requestMatchers("/api/notices", "/api/contacts", "/api/welcomes","/api/users", "/error", "/invalidSession").permitAll());
+        		.requestMatchers("/api/notices", "/api/contacts", "/api/welcomes","/api/users", "/error", "/invalidSession").permitAll())
+        	.sessionManagement(smc -> smc.invalidSessionUrl("/invalidSession").maximumSessions(1).maxSessionsPreventsLogin(true));
         
         http.formLogin(withDefaults());
         // http.formLogin(formLoginConfig -> formLoginConfig);
