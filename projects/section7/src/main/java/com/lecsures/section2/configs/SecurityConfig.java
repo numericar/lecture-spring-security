@@ -42,7 +42,13 @@ public class SecurityConfig {
         
         // global configuratinos for all exception from spring security
         http.exceptionHandling(exceptionHandlingConfig -> exceptionHandlingConfig.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
-
+        
+        // global config for all exception for access denied handling
+        // http.exceptionHandling(exceptionHandlingConfig -> exceptionHandlingConfig.accessDeniedHandler(new CustomAccessDeniedHandler()));
+        
+        // global config for all exception for access denied handling with custom page
+        // http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()).accessDeniedPage("/denied"));
+        
         return http.build();
     }
 

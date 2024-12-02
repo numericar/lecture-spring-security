@@ -11,9 +11,9 @@ public class ResponseDto<T> {
 	private boolean isSuccess;
 	private String message;
 	private T object; 
-	private LocalDateTime created;
+	private String created;
 	
 	public ResponseDto() {
-		this.created = LocalDateTime.now();
+		this.created = LocalDateTime.now().toString();
 	}
 }
