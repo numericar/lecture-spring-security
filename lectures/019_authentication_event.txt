@@ -1,0 +1,6 @@
+Authentication Event
+    ในหลายสถาณการณ์ เราอาจต้องการตรวจจับเหตุการณ์ที่เกิดขึ้น ที่เกี่ยวข้องกับการยืนยันตัวตน
+    เช่น เมื่อทำการ login แล้ว ให้ส่งอีเมลบอกผู้ใช้
+
+    โดย spring security จะปล่อย event onSuccess (AuthenticationSuccessEvent) และ onFailure (AuthenticationFailureEvent)
+    
