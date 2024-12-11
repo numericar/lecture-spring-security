@@ -5,4 +5,7 @@ Authentication Event
     โดย spring security จะปล่อย event 
         - onSuccess (AuthenticationSuccessEvent) 
         - onFailure (AuthenticationFailureEvent)
+
+     @EventListener 
+        - ทำให้ method คอยดูเหตุุการที่เกิดขึ้น
     
