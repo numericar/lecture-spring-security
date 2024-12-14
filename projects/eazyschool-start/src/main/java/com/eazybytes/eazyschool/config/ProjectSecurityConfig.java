@@ -47,7 +47,14 @@ public class ProjectSecurityConfig {
 						.failureUrl("/login?error=true") // set default url after login failed
 						.failureHandler(this.failureHandler) // handle success event
 						.successHandler(this.successHandler) // handle failed event
-				).httpBasic(Customizer.withDefaults());
+				)
+				.logout(logoutConfig -> {
+					logoutConfig.logoutSuccessUrl("/login?logout=true"); // custom url for logged out successful
+					logoutConfig.invalidateHttpSession(true); // validate HTTP Session of user is expire after logout
+					logoutConfig.clearAuthentication(true); // clear user information in security context
+					logoutConfig.deleteCookies("JSESSIONID"); // remove cookie from client
+				})
+				.httpBasic(Customizer.withDefaults());
 
 		return http.build();
 	}
