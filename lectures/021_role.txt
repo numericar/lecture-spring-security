@@ -1,0 +1,22 @@
+Role of SecurityContext & SecurityContextHolder
+
+    Authentication
+        เป็น object ที่จัดเก็บข้อมูลของผู้ใช้ที่ทำการยืนยันตัวตน โดยทำการเก็บข้อมูลดังนี้
+            1. Principal (username)
+            2. Credential (password)
+            3. Authorities (roles)
+
+    SecurityContext
+        เป็น object ที่ถูกสร้างขึ้นหลังจากการเข้าสู่ระบบของผู้ใช้นั้นถูกต้อง
+        โดยมันเป็นเพียง interface ซึ่งถูก implement โดย SecurityContextImplementation
+
+    SecurityContextHolder
+        เป็น object ที่ทำหน้าที่จัดการกับ SecurityContext โดยจะทำหน้าที่จัดการหลาย ๆ อย่าง เช่น ล้าง context, เพิ่ม context
+        (CRUD เกี่ยวกับ context)
+
+    inside a SecurityContext interface 
+        public interface SecurityContext {
+            Authentication getAuthentication();
+
+            void setAuthentication(Authentication authentication);
+        }
